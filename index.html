@@ -33,7 +33,7 @@ window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.heig
 let gameStarted=false;
 
 // ===== 音管理 =====
-const bgm=new Audio("bgm.mp3");bgm.loop=true;
+const bgm=new Audio("bgm.m4a");bgm.loop=true;
 const seLaunch1=new Audio("se_launch1.mp3");
 const seLaunch2=new Audio("se_launch2.mp3");
 const seLaunch3=new Audio("se_launch3.mp3");
@@ -186,14 +186,26 @@ function showControls(){document.getElementById("controls").style.opacity="1"; c
 window.addEventListener("mousemove",showControls);window.addEventListener("keydown",showControls);
 showControls();
 
-// ===== ゲーム開始 =====
+// ゲーム開始
 function startGame(){
-  gameStarted=true;
-  document.getElementById("startScreen").style.display="none";
-  initStars();initLanterns(canvas.height-100);initPeople();
-  bgm.play();seOn=true;
+  gameStarted = true;
+  document.getElementById("startScreen").style.display = "none";
+  initStars(); initLanterns(canvas.height-100); initPeople();
+  bgm.play(); seOn = true;
   animate();
 }
+
+// START画面クリック・タップでゲーム開始
+document.getElementById("startScreen").addEventListener("click", startGame);
+document.getElementById("startScreen").addEventListener("touchstart", startGame);
+
+// ゲーム中タップでランダム位置花火
+canvas.addEventListener("click", () => {
+  if(gameStarted) fireworks.push(new Firework(Math.random()*canvas.width, canvas.height));
+});
+canvas.addEventListener("touchstart", () => {
+  if(gameStarted) fireworks.push(new Firework(Math.random()*canvas.width, canvas.height));
+});
 
 // 最初のクリックで音声再生を許可
 document.body.addEventListener("click",()=>{if(!gameStarted){bgm.play();}}, {once:true});
