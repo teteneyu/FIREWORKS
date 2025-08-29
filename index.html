@@ -137,7 +137,7 @@ class Firework{
     this.colors = [];
 
     if (isChild) {
-        const angle = Math.random() * Math.PI * 2;
+        const angle = Math.random() * Math.PI * 1.75;
         const speed = Math.random() * 3 + 1;
         this.vx = Math.cos(angle) * speed;
         this.vy = Math.sin(angle) * speed - 2;
@@ -375,7 +375,7 @@ document.getElementById("toggleAuto").addEventListener("click",()=>{
     autoFireOn=!autoFireOn;
     updateAutoButton();
     clearInterval(autoFireIntervalId);
-    if(autoFireOn) autoFireIntervalId = setInterval(autoFire, 3000);
+    if(autoFireOn) autoFireIntervalId = setInterval(autoFire, 4500);
 });
 const finaleButton = document.getElementById("finaleButton");
 finaleButton.addEventListener("click", startFinale);
@@ -400,7 +400,7 @@ function autoFire(){
     }, i * (300 + Math.random() * 300));
   }
 }
-let autoFireIntervalId = setInterval(autoFire, 3000);
+let autoFireIntervalId = setInterval(autoFire, 4500);
 
 // ===== フィナーレ機能 =====
 function startFinale() {
@@ -435,7 +435,7 @@ function showControls(){
   clearTimeout(uiTimeout);
   uiTimeout=setTimeout(()=>{
     document.getElementById("controls").style.opacity="0";
-  },3000);
+  },5000);
 }
 window.addEventListener("mousemove",showControls);
 window.addEventListener("keydown",showControls);
@@ -490,7 +490,7 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     clearInterval(autoFireIntervalId);
   } else {
-    if(autoFireOn) autoFireIntervalId = setInterval(autoFire, 3000);
+    if(autoFireOn) autoFireIntervalId = setInterval(autoFire, 4500);
   }
 });
 
