@@ -46,7 +46,7 @@ let autoFireOn = true;
 let finaleActive = false;
 
 // ===== 音管理 =====
-const bgm=new Audio("bgm.mp3");bgm.loop=true;bgm.volume=0.7;
+const bgm=new Audio("bgm.mp3");bgm.loop=true;bgm.volume=0.25;
 const seLaunch1=new Audio("se_launch1.mp3");
 const seLaunch2=new Audio("se_launch2.mp3");
 const seLaunch3=new Audio("se_launch3.mp3");
@@ -259,7 +259,7 @@ function triggerWatchReaction(eventX, eventSize){
         const distance = Math.abs(p.x - eventX);
         const watchRadius = canvas.width / 3 + eventSize * 30;
         if(distance < watchRadius){
-            const probability = (1 - distance / watchRadius) * 0.5; // 確率を少し上げる
+            const probability = (1 - distance / watchRadius) * 0.2; // 確率を少し上げる
             if(Math.random() < probability){
                 if (p.y === p.baseY) { // 地面にいるときだけ
                     p.jumpsLeft = 2 + Math.floor(Math.random() * 2);
@@ -313,7 +313,7 @@ function drawForeground(ctx){
         p.jumpVelocity = -3.5 * p.size;
         p.jumpsLeft--;
     }
-    p.jumpVelocity += 0.3;
+    p.jumpVelocity += 0.15; // 重力
     p.y += p.jumpVelocity;
     if(p.y > p.baseY){ p.y = p.baseY; p.jumpVelocity = 0; }
 
