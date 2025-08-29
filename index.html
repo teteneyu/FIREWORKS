@@ -127,7 +127,8 @@ class Firework{
         this.shapeType = ["circle", "ring"][Math.floor(Math.random() * 2)];
     } else {
         this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = -6 - Math.random() * 2;
+                const baseVelocity = canvas.height / 100; // 画面の高さに応じた初速
+        this.vy = -(baseVelocity + Math.random() * (baseVelocity * 0.4));
         this.targetY = canvas.height * (0.15 + Math.random() * 0.25);
         this.size = 0.8 + Math.random() * 2.2;
         this.isMultiBreak = Math.random() < 0.25;
