@@ -125,7 +125,8 @@ class Firework{
         this.shapeType = ["circle", "ring"][Math.floor(Math.random() * 2)];
     } else {
         this.vx = (Math.random() - 0.5) * 2;
-        this.vy = -5 - Math.random() * 3;
+        const baseVelocity = canvas.height / 110; // 画面の高さに基づいた基本速度
+        this.vy = -(baseVelocity + Math.random() * (baseVelocity * 0.4));
         this.size = 0.8 + Math.random() * 2.2;
         this.isMultiBreak = Math.random() < 0.25; // 25%の確率で子持ち花火に
         let palette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
@@ -146,7 +147,7 @@ class Firework{
             if (this.life <= 0) this.explode();
         } else {
             this.smokes.push(new Smoke(this.x, this.y + 10, 3, true));
-            if (this.vy >= -1) this.explode(); // 頂点近くで爆発
+            if (this.vy >= -1 || this.y < canvas.height * 0.20) this.explode(); // 頂点近く、または画面上部20%に達したら爆発
         }
     } else {
         this.particles.forEach(p => p.update());
@@ -299,7 +300,7 @@ function autoFire(){
   if(!gameStarted || finaleActive)return;
   fireworks.push(new Firework((100 + Math.random() * (canvas.width - 200)),canvas.height));
 }
-setInterval(autoFire,2000);
+let autoFireIntervalId = setInterval(autoFire,2000);
 
 // ===== フィナーレ機能 =====
 let finaleActive = false;
@@ -384,7 +385,17 @@ canvas.addEventListener("touchstart", () => {
   if(gameStarted) fireworks.push(new Firework((100 + Math.random() * (canvas.width - 200)), canvas.height));
 });
 
+// ページが非表示になった際の自動打ち上げ制御
+document.addEventListener('visibilitychange', () => {
+  if (!gameStarted) return;
+  if (document.hidden) {
+    clearInterval(autoFireIntervalId);
+  } else {
+    autoFireIntervalId = setInterval(autoFire, 2000);
+  }
+});
+
+
 </script>
 </body>
 </html>
-
