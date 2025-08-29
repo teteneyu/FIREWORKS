@@ -64,7 +64,7 @@ function playLaunchSe(){
   if(!seOn) return;
   const sound = launchSounds[currentLaunchSound];
   sound.currentTime = 0;
-  sound.volume = 0.3;
+  sound.volume = 0.1;
   sound.play();
   currentLaunchSound = (currentLaunchSound + 1) % launchSounds.length;
 }
@@ -72,7 +72,7 @@ function playExplodeSe(){
   if(!seOn) return;
   const sound = explodeSounds[currentExplodeSound];
   sound.currentTime = 0;
-  sound.volume = 0.3;
+  sound.volume = 0.15;
   sound.play();
   currentExplodeSound = (currentExplodeSound + 1) % explodeSounds.length;
 }
